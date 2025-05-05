@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-accent;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -28,7 +32,23 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+
+    --primary: 337 100% 10%; /* #33000d */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 337 100% 20%; /* #660025 */
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 337 50% 60%; /* #993355 */
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 337 70% 80%; /* #ee7ea5 */
+    --muted-foreground: 0 0% 0%;
+
+    --border: var(--primary);
+    --input: var(--primary);
+    --ring: var(--primary);
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -54,7 +74,23 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
+
+    --primary: 0 0% 0%; /* #000000 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 13%; /* #222222 */
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 167 70% 50%; /* #20D4AC */
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 167 70% 40%; /* #1AA184 */
+    --muted-foreground: 0 0% 100%;
+
+    --border: var(--accent);
+    --input: var(--accent);
+    --ring: var(--accent);
   }
 }
 
@@ -62,7 +98,9 @@
   * {
     @apply border-border;
   }
+  @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
   }
+}
 }

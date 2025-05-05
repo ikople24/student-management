@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    serverActions: false, // ถ้าเปิด App Router ต้องปิด serverActions ก่อน
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

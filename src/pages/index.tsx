@@ -1,35 +1,16 @@
-import Navbar from "@/components/Navbar";
-import StudentForm from "@/components/StudentForm";
-import StudentList from "@/components/StudentList";
-import { useState, useEffect } from "react";
-
-export default function DashboardPage() {
-  const [students, setStudents] = useState<any[]>([]);
+// src/pages/index.tsx
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+export default function HomePage() {
+  const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/students")
-      .then((res) => res.json())
-      .then((data) => setStudents(data));
-  }, []);
-
-  const addStudent = async (newStudent: any) => {
-    const res = await fetch("/api/students", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newStudent),
-    });
-    const data = await res.json();
-    setStudents([...students, data]);
-  };
-  console.log(students)
+    router.replace("/dashboard");
+  }, [router]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="p-4 max-w-4xl mx-auto">
-        <StudentForm onAdd={addStudent} />
-        <StudentList students={students} />
-      </main>
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-2xl font-semibold">กำลังโหลด...</h1>
     </div>
   );
 }
