@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeIcon, EyeOff, EyeOffIcon } from "lucide-react"; // icon ที่ใช้ (หรือ icon อะไรก็ได้)
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Swal from "sweetalert2";
 import { z } from "zod";
 
 // ✅ zod schema
@@ -24,15 +25,26 @@ export default function AddUser() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const result = userSchema.safeParse(form);
+
+    const result = userSchema.safeParse(form); // ✅ moved here!
 
     if (!result.success) {
-      // ✅ จัดเก็บ error
       const formErrors: { [key: string]: string } = {};
       result.error.errors.forEach(err => {
         formErrors[err.path[0]] = err.message;
       });
       setErrors(formErrors);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'ข้อมูลไม่ถูกต้อง',
+        text: 'กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง',
+        timer: 1500,
+        customClass: {
+          confirmButton: 'bg-primary text-white hover:bg-primary/90 focus:ring focus:ring-primary/50'
+        }
+      });
+
       return;
     }
 
@@ -42,8 +54,33 @@ export default function AddUser() {
       body: JSON.stringify(form),
     });
 
-    if (res.ok) router.push("/dashboard");
-  };
+    if (res.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'เพิ่มผู้ใช้เรียบร้อย!',
+        text: 'ผู้ใช้ถูกเพิ่มเข้าสู่ระบบแล้ว',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        router.push("/dashboard");
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: 'ไม่สามารถเพิ่มผู้ใช้ได้',
+      });
+    }
+    return (
+      <div className="p-8 max-w-md mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Add New User</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* ... (rest of your JSX stays the same) */}
+        </form>
+      </div>
+    );
+  }
+
 
   return (
     <div className="p-8 max-w-md mx-auto">

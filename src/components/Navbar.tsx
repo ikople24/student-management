@@ -49,7 +49,7 @@ export default function Navbar() {
                 <ul className="grid gap-3 p-4 w-[250px]">
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link href="#">
+                      <Link href="/dashboard">
                         <div className="p-3 hover:bg-accent rounded">
                           <div className="font-medium">Dashboard</div>
                           <p className="text-sm text-muted-foreground">สรุปภาพรวมทั้งหมด</p>
@@ -75,7 +75,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Components</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid grid-cols-2 gap-3 p-4 w-[500px]">
+                <ul className="grid grid-cols-2 gap-2 p-4 w-[500px]">
                   <li>
                     <NavigationMenuLink asChild>
                       <Link href="#">
